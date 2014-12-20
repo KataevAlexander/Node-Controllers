@@ -1,7 +1,7 @@
-import refs = require('application/refs');
+//import refs = require('application/refs');
 import express = require('express');
 import IndexController = require('application/controllers/page/IndexController');
-import IndexModel = require('application/models/page/IndexModel/IndexModel');
+import IndexModel = require('models/page/IndexModel');
 
 var app = express();
 //var route:express.IRouter = <any>express.Router;
@@ -33,5 +33,5 @@ app.get('/', function (req, res) {
 });
 
 app.listen(3000, function () {
-    console.log('start');
+    console.log('start oops 324  ewfwefdf4 ');
 });

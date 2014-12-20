@@ -1,4 +1,4 @@
-import refs = require('application/refs');
+import express = require('express');
 import ControllerImpl = require('application/core/controller/ControllerImpl');
 
 class IndexController extends ControllerImpl {

@@ -1,4 +1,4 @@
-import refs = require('application/refs');
+//import refs = require('application/refs');
 
 interface Controller {
 
