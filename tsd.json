@@ -10,6 +10,9 @@
     },
     "express/express.d.ts": {
       "commit": "2d27ff2bdb2e5ff94e6147206ff6fa27ea96a78d"
+    },
+    "swig/swig.d.ts": {
+      "commit": "48b4cb54af76f02b33dccaa0fdd2ae97db7cdd1b"
     }
   }
 }

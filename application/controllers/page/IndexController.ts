@@ -13,4 +13,4 @@ class IndexController extends ControllerImpl {
 
 }
 
-export = ControllerImpl;
+export = IndexController;

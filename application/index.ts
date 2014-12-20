@@ -1,37 +1,29 @@
-//import refs = require('application/refs');
+import swig = require('swig');
 import express = require('express');
-import IndexController = require('application/controllers/page/IndexController');
-import IndexModel = require('models/page/IndexModel');
 
-var app = express();
-//var route:express.IRouter = <any>express.Router;
-//
-//var controller = new IndexController();
-//var model = new IndexModel();
-//
-//route.get(controller.get);
-//
-//app.use('/', route);
+var DR = __dirname;
 
-//var r = express.Router;
-//
-//function load() {
-//    var controllerPath = 'application/controllers/page/IndexController';
-//    var modelPath = 'application/models/page/IndexModel/IndexModel';
-//    var route = exports.Router();
-//
-//    var Controller = require(controllerPath);
-//    var Model = require(modelPath);
-//
-//    var controller = new Controller();
-//
-//    route.get('/', controller.get);
-//}
+module.exports = function main(app:express.Application) {
 
-app.get('/', function (req, res) {
-    res.end('hello');
-});
+	app.engine('swig', swig.renderFile);
 
-app.listen(3000, function () {
-    console.log('start');
-});
+	app.set('view cache', false);
+	app.set('view engine', 'swig');
+	app.set('views', DR + '/views');
+
+	swig.setDefaults({
+		cache: false,
+		loader: swig.loaders.fs(DR + '/views')
+	});
+
+	var Model:any = require('./models/page/IndexModel');
+	var Controller:any = require('./controllers/page/IndexController');
+
+	var model = new Model();
+	var controller = new Controller(model);
+
+	app.get('/', function (req, res) {
+		controller.get(req, res);
+	})
+
+};
