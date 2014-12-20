@@ -33,5 +33,5 @@ app.get('/', function (req, res) {
 });
 
 app.listen(3000, function () {
-    console.log('start oops 324  ewfwefdf4 ');
+    console.log('start');
 });

@@ -1,7 +1,6 @@
 var fs = require('fs.extra');
 
 var gulp = require('gulp');
-var debug = require('gulp-debug');
 var clean = require('gulp-clean');
 var tsc = require('gulp-typescript-compiler');
 
@@ -19,23 +18,18 @@ var path = {
 	application: base + 'application/'
 };
 
-//gulp.task('watch', function () {
-//	gulp.watch(paths.application + '**/*.ts', ['application-ts']);
-//});
-
-gulp.task('default', ['backend'], function () {
+gulp.task('default', ['backend', 'frontend'], function () {
 });
 
-//gulp.task('backend', ['backend-clean', 'backend-copy', 'backend-ts', 'backend-ts-clean', 'backend-swig']);
 gulp.task('backend', ['backend:clear', 'backend:sync', 'backend:ts']);
+gulp.task('backend:sync', ['backend:sync:cluster', 'backend:sync:application', 'backend:sync:typings']);
+gulp.task('backend:ts', ['backend:ts:compile', 'backend:ts:clean']);
 
 gulp.task('backend:clear', function (callback) {
 	fs.rmrfSync(path.build.base);
 
 	callback();
 });
-
-gulp.task('backend:sync', ['backend:sync:cluster', 'backend:sync:application', 'backend:sync:typings']);
 
 gulp.task('backend:sync:cluster', function () {
 	return gulp.src([path.cluster + '**'])
@@ -51,8 +45,6 @@ gulp.task('backend:sync:typings', function () {
 	return gulp.src(path.typings + '**')
 		.pipe(gulp.dest(path.build.typings));
 });
-
-gulp.task('backend:ts', ['backend:ts:compile', 'backend:ts:clean']);
 
 gulp.task('backend:ts:compile', ['backend:sync'], function () {
 	return gulp.src(path.build.base + '**/*.ts')
@@ -71,20 +63,8 @@ gulp.task('backend:ts:clean', ['backend:ts:compile'], function () {
 		.pipe(clean());
 });
 
-gulp.task('backend-swig', function () {
-});
-
 gulp.task('frontend');
 
 gulp.task('watch', function () {
-	//gulp.watch(path.application + '**/*', function(event) {
-	//	console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
-	//});
-
-	gulp.watch(path.application + '**/*.ts', ['backend-copy', 'backend-ts']);
+	gulp.watch(path.application + '**/*.ts', ['backend:ts']);
 });
-
-function onError(error) {
-	console.log(error.toString());
-	this.emit('end');
-}
