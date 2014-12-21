@@ -8,14 +8,11 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "express": "^4.10.4",
-    "swig": "^1.4.2"
-  },
+  "dependencies": {},
   "devDependencies": {
     "fs.extra": "^1.2.1",
     "gulp": "^3.8.10",
     "gulp-clean": "^0.3.1",
-    "gulp-typescript": "^2.3.0"
+    "gulp-tsc": "^0.9.2"
   }
 }

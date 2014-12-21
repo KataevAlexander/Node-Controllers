@@ -16,8 +16,8 @@ module.exports = function main(app:express.Application) {
 		loader: swig.loaders.fs(DR + '/views')
 	});
 
-	var Model:any = require('./models/page/IndexModel');
-	var Controller:any = require('./controllers/page/IndexController');
+	var Model:any = require('application/models/page/IndexModel');
+	var Controller:any = require('application/controllers/page/IndexController');
 
 	var model = new Model();
 	var controller = new Controller(model);
