@@ -31,7 +31,10 @@ gulp.task('frontend:ts:internal', function () {
 });
 
 gulp.task('frontend:ts:external', function () {
-	return gulp.src(path.js + 'vendor/**')
+	gulp.src(path.js + 'vendor/require.js')
+		.pipe(gulp.dest(path.build.js));
+	
+	return gulp.src([path.js + 'vendor/**', '!' + path.js + 'vendor/require.js'])
 		.pipe(concat('external.js'))
 		.pipe(gulp.dest(path.build.js));
 });
