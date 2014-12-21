@@ -10,6 +10,13 @@ class IndexController extends ControllerImpl {
     post() {
         //this.get();
     }
+    
+    before(request, response) {
+        console.log('before');
+        //next();
+        
+        response.send('before');
+    }
 
 }
 

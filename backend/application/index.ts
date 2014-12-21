@@ -17,24 +17,28 @@ module.exports = function main(app:express.Application) {
 		cache: false,
 		loader: swig.loaders.fs(home + '/views')
 	});
-	
+
 	walk(home + '/controllers', function (path) {
 		var Model = require(path
-			.replace('controller', 'model')
-			.replace('Controller', 'Model')
+				.replace('controller', 'model')
+				.replace('Controller', 'Model')
 		);
 		var Controller = require(path);
 
 		var model = new Model();
 		var controller = new Controller(model);
-		
-		app.get('/', controller.get);
+
+		console.log(typeof controller.get, typeof controller.delete);
+
+		app
+			.all('/', controller.before)
+			.get('/', controller.get);
 	});
 
 };
 
 function walk(dir, callback) {
-	fs.readdirSync(dir).forEach(function(file) {
+	fs.readdirSync(dir).forEach(function (file) {
 		var filePath = path.join(dir, file);
 
 		fs.statSync(filePath).isDirectory() ? walk(filePath, callback) : callback(filePath);

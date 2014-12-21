@@ -10,7 +10,7 @@ interface Controller {
     
     delete(request:express.Request, response:express.Response);
 
-    before(request:express.Request, app:express.Application);
+    before(request:express.Request, response:express.Response);
 
     after(request:express.Request, response:express.Response, app:express.Application);
 

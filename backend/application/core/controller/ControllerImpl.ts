@@ -12,7 +12,7 @@ class ControllerImpl implements Controller {
 		this.model = model;
 	}
 
-	get(request:Express.Request, response:express.Response) {
+	get(request:express.Request, response:express.Response) {
 		var model = this.model;
 
 		model.load();
@@ -21,16 +21,16 @@ class ControllerImpl implements Controller {
 		response.render(model.getTplPath(), model.getTplSettings());
 	}
 
-	post(request:Express.Request, response:express.Response) {
+	post(request:express.Request, response:express.Response) {
 	}
 
-	put(request:Express.Request, response:express.Response) {
+	put(request:express.Request, response:express.Response) {
 	}
 
-	delete(request:Express.Request, response:express.Response) {
+	delete(request:express.Request, response:express.Response) {
 	}
 
-	before(request:express.Request, app:express.Application) {
+	before(request:express.Request, response:express.Response) {
 
 	}
 
