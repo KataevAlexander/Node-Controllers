@@ -1,7 +1,9 @@
 import swig = require('swig');
 import express = require('express');
+import fs = require('fs');
+import path = require('path');
 
-var DR = __dirname;
+var home = __dirname;
 
 module.exports = function main(app:express.Application) {
 
@@ -9,21 +11,32 @@ module.exports = function main(app:express.Application) {
 
 	app.set('view cache', false);
 	app.set('view engine', 'swig');
-	app.set('views', DR + '/views');
+	app.set('views', home + '/views');
 
 	swig.setDefaults({
 		cache: false,
-		loader: swig.loaders.fs(DR + '/views')
+		loader: swig.loaders.fs(home + '/views')
+	});
+	
+	walk(home + '/controllers', function (path) {
+		var Model = require(path
+			.replace('controller', 'model')
+			.replace('Controller', 'Model')
+		);
+		var Controller = require(path);
+
+		var model = new Model();
+		var controller = new Controller(model);
+		
+		app.get('/', controller.get);
 	});
 
-	var Model:any = require('application/models/page/IndexModel');
-	var Controller:any = require('application/controllers/page/IndexController');
-
-	var model = new Model();
-	var controller = new Controller(model);
-
-	app.get('/', function (req, res) {
-		controller.get(req, res);
-	})
-
 };
+
+function walk(dir, callback) {
+	fs.readdirSync(dir).forEach(function(file) {
+		var filePath = path.join(dir, file);
+
+		fs.statSync(filePath).isDirectory() ? walk(filePath, callback) : callback(filePath);
+	});
+}
