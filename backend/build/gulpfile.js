@@ -11,34 +11,24 @@ var path = {
 		cluster: base + 'build/target/cluster/',
 		typings: base + 'build/target/typings/',
 		application: base + 'build/target/application/',
-		modules: base + 'build/target/node_modules/'
+		data: base + 'build/target/data/'
 	},
 
 	cluster: base + 'cluster/',
 	typings: base + 'typings/',
 	application: base + 'application/',
-	modules: base + 'node_modules/'
+	data: base + 'data/'
 };
 
 gulp.task('backend:default', ['backend:clear', 'backend:sync', 'backend:ts'], function () {
 	console.log('backend ok');
 });
 
-gulp.task('backend:sync', ['backend:sync:cluster', 'backend:sync:application', 'backend:sync:typings', 'backend:sync:modules']);
+gulp.task('backend:sync', ['backend:sync:cluster', 'backend:sync:application', 'backend:sync:typings', 'backend:sync:data']);
 gulp.task('backend:ts', ['backend:ts:compile', 'backend:ts:clean']);
 
-gulp.task('backend:clear', function (callback) {
+gulp.task('backend:clear', function () {
 	fs.rmrfSync(path.build.base);
-
-	if (fs.existsSync(path.build.application)) {
-		fs.rmrfSync(path.build.application);
-	}
-
-	if (fs.existsSync(path.build.cluster)) {
-		fs.rmrfSync(path.build.cluster);
-	}
-
-	callback();
 });
 
 gulp.task('backend:sync:cluster', function () {
@@ -56,9 +46,9 @@ gulp.task('backend:sync:typings', function () {
 		.pipe(gulp.dest(path.build.typings));
 });
 
-gulp.task('backend:sync:modules', function () {
-	return gulp.src(path.modules + '**')
-		.pipe(gulp.dest(path.build.modules));
+gulp.task('backend:sync:data', function () {
+	return gulp.src(path.data + '**')
+		.pipe(gulp.dest(path.build.data));
 });
 
 gulp.task('backend:ts:compile', ['backend:sync'], function () {
