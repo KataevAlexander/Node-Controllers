@@ -27,12 +27,10 @@ module.exports = function main(app:express.Application) {
 
 		var model = new Model();
 		var controller = new Controller(model);
-
-		console.log(typeof controller.get, typeof controller.delete);
-
-		app
-			.all('/', controller.before)
-			.get('/', controller.get);
+		
+		app.get('/', function (request, response) {
+			controller.get(request, response);
+		});
 	});
 
 };
