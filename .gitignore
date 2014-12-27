@@ -3,7 +3,4 @@
 node_modules
 npm-debug.log
 build/target
-backend/build/target
-backend/typings/typings
-frontend/build/target
-frontend/typings/typings
+typings/backend/typings
