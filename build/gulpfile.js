@@ -20,11 +20,13 @@ var path = {
 	build: {
 		base: base + 'build/target/',
 		application: base + 'build/target/application/',
+		cluster: base + 'build/target/cluster/',
 		'public': base + 'build/target/',
 		'static': base + 'build/target/'
 	},
 
 	application: base + 'application/',
+	cluster: base + 'cluster/',
 	typings: base + 'typings/',
 	'public': base + 'public/',
 	'static': base + 'static/'
@@ -32,14 +34,14 @@ var path = {
 
 // default
 
-gulp.task('default', ['application', 'public', 'static', 'modules'], function () {
+gulp.task('default', ['application', 'cluster', 'public', 'static', 'modules'], function () {
 	console.log('all build');
 });
 
 // all
 
 gulp.task('application', ['application:clear', 'application:views', 'application:compile']);
-gulp.task('cluster', []);
+gulp.task('cluster', ['cluster:clear', 'cluster:sync']);
 //gulp.task('common', []);
 gulp.task('public', ['public:clear', 'public:sync']);
 gulp.task('static', ['static:clear', 'static:css', 'static:img', 'static:js:require', 'static:js:application', 'static:js:vendor']);
@@ -64,6 +66,17 @@ gulp.task('application:compile', function () {
 		}))
 		.pipe(clip())
 		.pipe(gulp.dest(path.build.application));
+});
+
+// cluster
+
+gulp.task('cluster:clear', function () {
+	fs.rmrfSync(path.build.cluster);
+});
+
+gulp.task('cluster:sync', function () {
+	return gulp.src(path.cluster + '**')
+		.pipe(gulp.dest(path.build.cluster));
 });
 
 // public
