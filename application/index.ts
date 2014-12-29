@@ -2,8 +2,10 @@ import swig = require('swig');
 import express = require('express');
 import fs = require('fs');
 import path = require('path');
+import winston = require('winston');
 
 var home = __dirname;
+var stat = __dirname + '/..';
 
 module.exports = function main(app:express.Application) {
 
@@ -18,6 +20,15 @@ module.exports = function main(app:express.Application) {
 		loader: swig.loaders.fs(home + '/views')
 	});
 
+	app.use(function (req, res, next) {
+		winston.info(req.url);
+		next();
+	});
+
+	app.use('/js', express.static(stat + '/js'));
+	app.use('/css', express.static(stat + '/css'));
+	app.use('/img', express.static(stat + '/img'));
+
 	walk(home + '/controllers', function (path) {
 		var Model = require(path
 				.replace('controller', 'model')
@@ -27,9 +38,13 @@ module.exports = function main(app:express.Application) {
 
 		var model = new Model();
 		var controller = new Controller(model);
-		
-		app.get('/', function (request, response) {
-			controller.get(request, response);
+
+		model.urls.forEach(function (url) {
+			model.methods.forEach(function (method) {
+				app[method](url, function (request, response) {
+					controller[method](request, response);
+				});
+			})
 		});
 	});
 

@@ -1,6 +1,19 @@
+import _ = require('lodash');
 import Model = require('application/core/model/Model');
 
 class ModelImpl implements Model {
+
+	private _urls:Array<string>;
+	private _methods:Array<string>;
+	private _tplPath:string;
+	private _tplSettings:any;
+
+	constructor(urls:Array<string>, methods:Array<string>, tplPath?:string, tplSettings?:any) {
+		this._urls = urls;
+		this._methods = methods;
+		this._tplPath = tplPath;
+		this._tplSettings = tplSettings;
+	}
 
 	load():void {
 	}
@@ -8,12 +21,25 @@ class ModelImpl implements Model {
 	loadLocalization():void {
 	}
 
-	getTplPath():string {
-		return undefined;
+	get urls() {
+		return this._urls;
 	}
 
-	getTplSettings():any {
-		return undefined;
+	get methods() {
+		return this._methods;
+	}
+
+	get tplPath() {
+		return this._tplPath;
+	}
+
+	get tplSettings() {
+		return this._tplSettings;
+	}
+
+	//todo protected
+	set tplSettings(tplSettings:any) {
+		this._tplSettings = _.merge(this._tplSettings, tplSettings);
 	}
 
 }

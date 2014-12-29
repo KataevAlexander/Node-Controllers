@@ -18,7 +18,7 @@ class ControllerImpl implements Controller {
 		model.load();
 		model.loadLocalization();
 
-		response.render(model.getTplPath(), model.getTplSettings());
+		response.render(model.tplPath, model.tplSettings);
 	}
 
 	post(request:express.Request, response:express.Response) {

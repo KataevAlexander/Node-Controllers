@@ -27,9 +27,12 @@ var path = {
 
 	application: base + 'application/',
 	cluster: base + 'cluster/',
-	typings: base + 'typings/',
 	'public': base + 'public/',
 	'static': base + 'static/'
+};
+var typings = {
+	common: base + 'typings/common/typings/tsd.d.ts',
+	backend: base + 'typings/backend/typings/tsd.d.ts',
 };
 
 // default
@@ -58,7 +61,7 @@ gulp.task('application:views', function () {
 });
 
 gulp.task('application:compile', function () {
-	return gulp.src([path.application + '**/*.ts', path.typings + 'backend/typings/tsd.d.ts'])
+	return gulp.src([path.application + '**/*.ts', typings.common, typings.backend])
 		.pipe(tsc({
 			module: 'commonjs',
 			target: 'ES5',
@@ -123,7 +126,7 @@ gulp.task('static:js:application', function () {
 			target: 'ES5',
 			removeComments: true
 		}))
-		.pipe(concat('application.js'))
+		.pipe(concat('app.js'))
 		.pipe(uglify())
 		.pipe(gulp.dest(path.build.static + 'js/'));
 });
@@ -148,4 +151,5 @@ gulp.task('modules', function () {
 
 gulp.task('watch', function () {
 	gulp.watch([path.application + '**/*.ts'], ['application:compile']);
+	gulp.watch(path.cluster + '**', ['cluster:sync']);
 });
