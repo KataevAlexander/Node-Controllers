@@ -1,6 +1,6 @@
 import express = require('express');
 
-import Model = require("../model/Model");
+import Model = require("application/core/model/Model");
 import Controller = require("Controller");
 
 class ControllerImpl implements Controller {

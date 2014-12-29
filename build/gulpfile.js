@@ -13,7 +13,7 @@ var LessPluginCleanCSS = require("less-plugin-clean-css");
 var cleancss = new LessPluginCleanCSS({advanced: true});
 
 var LessPluginAutoPrefix = require('less-plugin-autoprefix');
-var autoprefix= new LessPluginAutoPrefix();
+var autoprefix = new LessPluginAutoPrefix();
 
 var base = './../';
 var path = {
@@ -146,6 +146,6 @@ gulp.task('modules', function () {
 
 //watchers
 
-//gulp.task('watch', function () {
-//	gulp.watch([path.application + '**/*.ts', path.cluster + '**/*.ts'], ['backend:ts']);
-//});
+gulp.task('watch', function () {
+	gulp.watch([path.application + '**/*.ts'], ['application:compile']);
+});

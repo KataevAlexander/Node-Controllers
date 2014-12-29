@@ -1,4 +1,4 @@
-import Model = require('Model');
+import Model = require('application/core/model/Model');
 
 class ModelImpl implements Model {
 
