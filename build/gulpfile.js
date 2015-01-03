@@ -19,14 +19,14 @@ var path = {
 	build: {
 		base: base + 'build/target/',
 		application: base + 'build/target/application/',
-		cluster: base + 'build/target/cluster/',
+		scripts: base + 'build/target/scripts/',
 		'public': base + 'build/target/',
 		'static': base + 'build/target/',
 		tests: base + 'build/target/tests/'
 	},
 
 	application: base + 'application/',
-	cluster: base + 'cluster/',
+	scripts: base + 'scripts/',
 	'public': base + 'public/',
 	'static': base + 'static/',
 	tests: base + 'tests/'
@@ -38,14 +38,14 @@ var path = {
 
 // default
 
-gulp.task('default', ['application', 'cluster', 'public', 'static', 'modules', 'tests'], function () {
+gulp.task('default', ['application', 'scripts', 'public', 'static', 'modules', 'tests'], function () {
 	console.log('all build');
 });
 
 // all
 
 gulp.task('application', ['application:clear', 'application:views', 'application:compile']);
-gulp.task('cluster', ['cluster:clear', 'cluster:sync']);
+gulp.task('scripts', ['scripts:clear', 'scripts:sync']);
 //gulp.task('common', []);
 gulp.task('public', ['public:clear', 'public:sync']);
 gulp.task('static', ['static:clear', 'static:css', 'static:img', 'static:js:require', 'static:js:application', 'static:js:vendor']);
@@ -73,21 +73,21 @@ gulp.task('application:compile', function () {
 		.pipe(gulp.dest(path.build.application));
 });
 
-// cluster
+// scripts
 
-gulp.task('cluster:clear', function () {
-	fs.rmrfSync(path.build.cluster);
+gulp.task('scripts:clear', function () {
+	fs.rmrfSync(path.build.scripts);
 });
 
-gulp.task('cluster:sync', function () {
-	return gulp.src(path.cluster + '**')
-		.pipe(gulp.dest(path.build.cluster));
+gulp.task('scripts:sync', function () {
+	return gulp.src(path.scripts + '**')
+		.pipe(gulp.dest(path.build.scripts));
 });
 
 // public
 
 gulp.task('public:clear', function () {
-	fs.rmrfSync(path.build.public);
+	//fs.rmrfSync(path.build.public);
 });
 
 gulp.task('public:sync', function () {
@@ -170,5 +170,5 @@ gulp.task('tests:compile', function () {
 
 gulp.task('watch', function () {
 	gulp.watch([path.application + '**/*.ts'], ['application:compile']);
-	gulp.watch(path.cluster + '**', ['cluster:sync']);
+	gulp.watch(path.scripts + '**', ['scripts:sync']);
 });

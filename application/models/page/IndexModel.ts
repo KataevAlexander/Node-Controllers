@@ -1,4 +1,4 @@
-import ModelImpl = require('application/core/model/ModelImpl')
+import ModelImpl = require('application/common/model/ModelImpl')
 
 class IndexModel extends ModelImpl {
 

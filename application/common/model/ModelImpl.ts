@@ -1,5 +1,5 @@
 import _ = require('lodash');
-import Model = require('application/core/model/Model');
+import Model = require('application/common/model/Model');
 
 class ModelImpl implements Model {
 

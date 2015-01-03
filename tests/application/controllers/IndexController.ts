@@ -13,7 +13,7 @@ describe('IndexController', function () {
 		it('should return 200 status', function (done) {
 			request(app)
 				.get('/')
-				.expect('Content-Type', 'text/html')
+				.expect('Content-Type', /text\/html/)
 				.expect(200, done)
 		});
 	});

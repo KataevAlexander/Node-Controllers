@@ -3,8 +3,8 @@
   "version": "5.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "scripts/start.js",
-    "test": "scripts/test.js"
+    "start": "./scripts/start.js",
+    "test": "sh scripts/test.sh"
   },
   "author": "",
   "license": "ISC",

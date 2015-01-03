@@ -1,4 +1,4 @@
-import Service = require('application/core/service/Service');
+import Service = require('application/common/service/Service');
 
 class ServiceImpl implements Service {
 

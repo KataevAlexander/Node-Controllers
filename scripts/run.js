@@ -5,7 +5,7 @@
 var spawn = require('child_process').spawn;
  
 var args = [
-  '--harmony',
+  //'--harmony',
   'index.js'
 ];
  
