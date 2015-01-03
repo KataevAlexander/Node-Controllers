@@ -5,7 +5,6 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var less = require('gulp-less');
 var install = require("gulp-install");
-var clean = require("gulp-clean");
 
 var fs = require('fs.extra');
 
@@ -22,22 +21,24 @@ var path = {
 		application: base + 'build/target/application/',
 		cluster: base + 'build/target/cluster/',
 		'public': base + 'build/target/',
-		'static': base + 'build/target/'
+		'static': base + 'build/target/',
+		tests: base + 'build/target/tests/'
 	},
 
 	application: base + 'application/',
 	cluster: base + 'cluster/',
 	'public': base + 'public/',
-	'static': base + 'static/'
+	'static': base + 'static/',
+	tests: base + 'tests/'
 };
-var typings = {
-	common: base + 'typings/common/typings/tsd.d.ts',
-	backend: base + 'typings/backend/typings/tsd.d.ts',
-};
+//var typings = {
+//	common: base + 'typings/common/typings/tsd.d.ts',
+//	backend: base + 'typings/backend/typings/tsd.d.ts',
+//};
 
 // default
 
-gulp.task('default', ['application', 'cluster', 'public', 'static', 'modules'], function () {
+gulp.task('default', ['application', 'cluster', 'public', 'static', 'modules', 'tests'], function () {
 	console.log('all build');
 });
 
@@ -48,6 +49,7 @@ gulp.task('cluster', ['cluster:clear', 'cluster:sync']);
 //gulp.task('common', []);
 gulp.task('public', ['public:clear', 'public:sync']);
 gulp.task('static', ['static:clear', 'static:css', 'static:img', 'static:js:require', 'static:js:application', 'static:js:vendor']);
+gulp.task('tests', ['tests:clear', 'tests:compile']);
 
 // application
 
@@ -61,7 +63,7 @@ gulp.task('application:views', function () {
 });
 
 gulp.task('application:compile', function () {
-	return gulp.src([path.application + '**/*.ts', typings.common, typings.backend])
+	return gulp.src([path.application + '**/*.ts'])
 		.pipe(tsc({
 			module: 'commonjs',
 			target: 'ES5',
@@ -143,8 +145,25 @@ gulp.task('modules', function () {
 	return gulp.src(base + 'package.json')
 		.pipe(gulp.dest(path.build.base))
 		.pipe(install({
-			production: true
+			//production: true
 		}));
+});
+
+// tests
+
+gulp.task('tests:clear', function () {
+	fs.rmrfSync(path.build.tests);
+});
+
+gulp.task('tests:compile', function () {
+	return gulp.src([path.tests + 'application/**/*.ts', path.application + 'refs.ts'])
+		.pipe(tsc({
+			module: 'commonjs',
+			target: 'ES5',
+			removeComments: true
+		}))
+		.pipe(clip())
+		.pipe(gulp.dest(path.build.tests));
 });
 
 //watchers

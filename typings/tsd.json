@@ -1,0 +1,33 @@
+{
+  "version": "v4",
+  "repo": "borisyankov/DefinitelyTyped",
+  "ref": "master",
+  "path": "typings",
+  "bundle": "typings/tsd.d.ts",
+  "installed": {
+    "supertest/supertest.d.ts": {
+      "commit": "ec6e0ae9525a165ca94d751932dd387078800c1e"
+    },
+    "superagent/superagent.d.ts": {
+      "commit": "ec6e0ae9525a165ca94d751932dd387078800c1e"
+    },
+    "swig/swig.d.ts": {
+      "commit": "ec6e0ae9525a165ca94d751932dd387078800c1e"
+    },
+    "node/node.d.ts": {
+      "commit": "ec6e0ae9525a165ca94d751932dd387078800c1e"
+    },
+    "express/express.d.ts": {
+      "commit": "ec6e0ae9525a165ca94d751932dd387078800c1e"
+    },
+    "winston/winston.d.ts": {
+      "commit": "ec6e0ae9525a165ca94d751932dd387078800c1e"
+    },
+    "mocha/mocha.d.ts": {
+      "commit": "ec6e0ae9525a165ca94d751932dd387078800c1e"
+    },
+    "lodash/lodash.d.ts": {
+      "commit": "ec6e0ae9525a165ca94d751932dd387078800c1e"
+    }
+  }
+}
