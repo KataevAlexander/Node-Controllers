@@ -1,10 +1,8 @@
-{% extends 'core/index.swig' %}
+{% extends 'common/common.swig' %}
 
 {% block body %}
-  {#<script src="/js/vendor.js"></script>#}
-  {#<script src="/js/app.js"></script>#}
 
-  <div al-app="CoreController">
+  <div al-app="CommonController">
     <div al-repeat="item in items">
       {{ item }}
     </div>

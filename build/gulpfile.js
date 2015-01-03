@@ -127,7 +127,7 @@ gulp.task('static:js:application', function () {
 			removeComments: true
 		}))
 		.pipe(concat('app.js'))
-		.pipe(uglify())
+		//.pipe(uglify())
 		.pipe(gulp.dest(path.build.static + 'js/'));
 });
 
