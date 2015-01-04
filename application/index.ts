@@ -10,6 +10,8 @@ var stat = __dirname + '/..';
 
 module.exports = function main(app:express.Application) {
 
+	app.set('home', home);
+
 	app.engine('swig', swig.renderFile);
 
 	app.set('view cache', false);

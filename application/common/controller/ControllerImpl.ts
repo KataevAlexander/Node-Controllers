@@ -16,7 +16,7 @@ class ControllerImpl implements Controller {
 		var model = this.model;
 
 		model.load();
-		model.loadLocalization();
+		//model.loadLocalization();
 
 		response.render(model.tplPath, model.tplSettings);
 	}
