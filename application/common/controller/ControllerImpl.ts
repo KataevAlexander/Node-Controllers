@@ -5,8 +5,7 @@ import Controller = require('application/common/controller/Controller');
 
 class ControllerImpl implements Controller {
 
-	//todo protected
-	model:Model;
+	protected model:Model;
 
 	constructor(model:Model) {
 		this.model = model;

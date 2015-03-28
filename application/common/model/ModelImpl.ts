@@ -37,7 +37,6 @@ class ModelImpl implements Model {
 		return this._tplSettings;
 	}
 
-	//todo protected
 	set tplSettings(tplSettings:any) {
 		this._tplSettings = _.merge(this._tplSettings, tplSettings);
 	}
